@@ -11,10 +11,16 @@ import edu.eci.pdsw.samples.entities.ItemRentado;
 import edu.eci.pdsw.samples.entities.TipoItem;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
-import edu.eci.pdsw.samples.services.ServiciosAlquilerItemsStub;
+import edu.eci.pdsw.samples.services.ServiciosAlquilerFactory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+//import edu.eci.pdsw.samples.services.ServiciosAlquilerItemsStub;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -32,12 +38,34 @@ public class ClientesTest {
     public void setUp() {
     }
 
-    @Test
-    public void additems1() throws ExcepcionServiciosAlquiler {
-
+    @After
+    public void clearDB() throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb;MODE=MYSQL", "sa", "");
+        Statement stmt = conn.createStatement();
+        stmt.execute("delete from VI_CLIENTES");
+        stmt.execute("delete from VI_ITEMRENTADO");
+        stmt.execute("delete from VI_ITEMS");
+        stmt.execute("delete from VI_TIPOITEM");
+        conn.commit();
+        conn.close();
+    }
+    
+    /**
+     * Obtiene una conexion a la base de datos de prueba
+     * @return
+     * @throws SQLException 
+     */
+    private Connection getConnection() throws SQLException{
+        return DriverManager.getConnection("jdbc:h2:file:./target/db/testdb;MODE=MYSQL", "sa", "");        
     }
 
     /**
+     * @Test public void additems1() throws ExcepcionServiciosAlquiler {
+     *
+     * }
+     *
+     * /
+     **
      * @obj registrar un Cliente en el sistema
      * @param p el nuevo Cliente
      * @pre p!=null
@@ -55,9 +83,20 @@ public class ClientesTest {
      * rentas, Tipo: Normal Resultado: correcto
      */
     @Test
-    public void testCE2() throws ExcepcionServiciosAlquiler {
-        ServiciosAlquiler sa = ServiciosAlquilerItemsStub.getInstance();
-
+    public void testCE2() throws ExcepcionServiciosAlquiler, SQLException {
+        
+        Connection conn=getConnection();
+        
+        Statement stmt=conn.createStatement();    
+        
+        stmt.execute("INSERT INTO `VI_CLIENTES` (`documento`, `nombre`,`telefono`,`direccion`,`email`,`vetado`) "
+                + "VALUES (2092815,'Juan Ortiz',3178255450,'calle 134 Alcala','onjfpeli@gmail.com',false)");
+        
+        conn.commit();
+        conn.close();
+        System.out.println("añsdf");
+        ServiciosAlquiler sa = ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
+        System.out.println("oooooooooo");
         Cliente c = new Cliente("Juan Ortiz", 2092815, "3178255450", "calle 134 Alcala", "onjfpeli@gmail.com");
         sa.registrarCliente(c);
 
@@ -67,7 +106,7 @@ public class ClientesTest {
 
     @Test
     public void testCE3() {
-        ServiciosAlquiler sa = ServiciosAlquilerItemsStub.getInstance();
+        ServiciosAlquiler sa = ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
 
         TipoItem ti1 = new TipoItem(1, "Video");
         TipoItem ti2 = new TipoItem(2, "Juego");
@@ -89,9 +128,9 @@ public class ClientesTest {
         items.put(2, i2);
         items.put(3, i3);
 
-        ItemRentado ir1 = new ItemRentado(i1, java.sql.Date.valueOf("2017-01-01"), java.sql.Date.valueOf("2017-03-12"));
-        ItemRentado ir2 = new ItemRentado(i3, java.sql.Date.valueOf("2017-01-04"), java.sql.Date.valueOf("2017-04-7"));
-        ItemRentado ir3 = new ItemRentado(i1, java.sql.Date.valueOf("2017-01-07"), java.sql.Date.valueOf("2017-07-12"));
+        ItemRentado ir1 = new ItemRentado(1, i1, java.sql.Date.valueOf("2017-01-01"), java.sql.Date.valueOf("2017-03-12"));
+        ItemRentado ir2 = new ItemRentado(2, i3, java.sql.Date.valueOf("2017-01-04"), java.sql.Date.valueOf("2017-04-7"));
+        ItemRentado ir3 = new ItemRentado(3, i1, java.sql.Date.valueOf("2017-01-07"), java.sql.Date.valueOf("2017-07-12"));
 
         ArrayList<ItemRentado> list1 = new ArrayList<>();
         list1.add(ir1);
@@ -105,7 +144,6 @@ public class ClientesTest {
             assertTrue(true);
         }
 
-        
     }
 
 }

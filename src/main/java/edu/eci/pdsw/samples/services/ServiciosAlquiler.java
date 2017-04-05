@@ -11,20 +11,11 @@ import java.util.List;
  *
  * @author 2106913
  */
-public abstract class ServiciosAlquiler {
+public interface ServiciosAlquiler {
 
-    private static ServiciosAlquiler instance = new ServiciosAlquilerItemsStub();
-
-    public static ServiciosAlquiler getInstance() throws RuntimeException {
-        return instance;
-    }
-
-    protected ServiciosAlquiler() {
-
-    }
-
+    
     public abstract int valorMultaRetrasoxDia();
-
+    
     public abstract Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler;
 
     /**
@@ -63,9 +54,9 @@ public abstract class ServiciosAlquiler {
     public abstract List<TipoItem> consultarTiposItem() throws ExcepcionServiciosAlquiler;
 
     /**
-     * @obj registrar el alquiler de un item
+     * @obj rejistrar el alkiler de un item
      * @pre numdias >=1
-     * @param date fecha de registro del alquiler
+     * @param date fecha de rejistro del alquiler
      * @param docu identificacion de a quien se le cargara el alquiler
      * @param item el identificador del item a alquilar
      * @param numdias el numero de dias que se le prestara el item
@@ -76,16 +67,7 @@ public abstract class ServiciosAlquiler {
      */
     public abstract void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler;
 
-    /**
-     * @obj registrar un cliente en el sistema
-     * @param p el nuevo cliente
-     * @pre p!=null
-     * @pos el cliente queda disponible para futuros alquileres
-     * @throws ExcepcionServiciosAlquiler si el cliente ya se encuentra
-     * registrado
-     */
     public abstract void registrarCliente(Cliente p) throws ExcepcionServiciosAlquiler;
-
 
     /**
      * @obj registrar la devolucion de un item

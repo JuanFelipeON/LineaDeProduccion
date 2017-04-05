@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.TipoItemMapper">
+    <select id="getTipoItem" resultMap="tipoItemResult" parameterType="map">
+        
+        select  id, descripcion
+        
+        from VI_TIPOITEM 
+        
+        where id = #{idti}
+       
+    </select>
+    
+    <resultMap type='TipoItem' id='tipoItemResult'>
+        <id property='id' column='Id'/>
+        <result property='descripcion' column='Descripcion'/>            
+    </resultMap>
+       
+</mapper>
