@@ -36,7 +36,7 @@ public class AlquilerTest {
     public AlquilerTest() {
     }
     
-    @Before
+   /** @Before
     public void setUp() {
     }
     
@@ -80,6 +80,6 @@ public class AlquilerTest {
     
     
     
-    
+    **/
     
 }

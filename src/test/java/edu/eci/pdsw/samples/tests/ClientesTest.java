@@ -30,6 +30,8 @@ import static org.junit.Assert.*;
  *
  */
 public class ClientesTest {
+    
+    /**
 
     public ClientesTest() {
     }
@@ -82,6 +84,8 @@ public class ClientesTest {
      * Clase de Equivalencia 4: Agregar un cliente no vetado y con una lista de
      * rentas, Tipo: Normal Resultado: correcto
      */
+    
+    /**
     @Test
     public void testCE2() throws ExcepcionServiciosAlquiler, SQLException {
         
@@ -145,5 +149,6 @@ public class ClientesTest {
         }
 
     }
+    * **/
 
 }

@@ -17,6 +17,7 @@ import edu.eci.pdsw.sampleprj.dao.ItemRentadoDAO;
 import edu.eci.pdsw.sampleprj.dao.TipoItemDAO;
 import edu.eci.pdsw.sampleprj.dao.mybatis.MyBATISClienteDAO;
 import edu.eci.pdsw.sampleprj.dao.mybatis.MyBATISItemDAO;
+import edu.eci.pdsw.sampleprj.dao.mybatis.MyBATISTipoItemDAO;
 
 /**
  *
@@ -41,6 +42,7 @@ public class ServiciosAlquilerFactory {
                         bind(ServiciosAlquiler.class).to(ServiciosAlquilerItemsImpl.class);
                         bind(ItemDAO.class).to(MyBATISItemDAO.class);
                         bind(ClienteDAO.class).to(MyBATISClienteDAO.class);
+                        bind(TipoItemDAO.class).to(MyBATISTipoItemDAO.class);
 
                     }
 
@@ -57,6 +59,7 @@ public class ServiciosAlquilerFactory {
                         bind(ServiciosAlquiler.class).to(ServiciosAlquilerItemsImpl.class);
                         bind(ItemDAO.class).to(MyBATISItemDAO.class);
                         bind(ClienteDAO.class).to(MyBATISClienteDAO.class);
+                        bind(TipoItemDAO.class).to(MyBATISTipoItemDAO.class);
 
                     }
 

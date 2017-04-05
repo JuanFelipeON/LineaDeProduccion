@@ -120,7 +120,7 @@
         values (#{idcli}, #{iditem}, #{fini}, #{ffin})
     </insert>
     
-    <insert id="insertarCLiente" parameterType="map" >
+    <insert id="insertarCliente" parameterType="map" >
         insert into VI_CLIENTES (documento, nombre, telefono, direccion, email, vetado) 
         values (#{cliente.documento}, #{cliente.nombre}, #{cliente.telefono}, #{cliente.direccion}, #{cliente.email}, #{cliente.vetado})
     </insert>
